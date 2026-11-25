@@ -1,0 +1,1772 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="JobConnect adalah platform informasi dan pencarian lowongan kerja untuk membantu pencari kerja menemukan peluang karier.">
+    <title>JobConnect - Temukan Peluang Kariermu</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #0f172a;
+            --text: #475569;
+            --muted: #64748b;
+            --light: #f8fafc;
+            --border: #e2e8f0;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--secondary);
+            background: var(--white);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1180px;
+            margin: auto;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(226,232,240,0.8);
+        }
+
+        .nav-content {
+            height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 23px;
+            font-weight: 800;
+            color: var(--secondary);
+        }
+
+        .logo-icon {
+            width: 39px;
+            height: 39px;
+            background: linear-gradient(135deg, #2563eb, #60a5fa);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 600;
+            color: #475569;
+            transition: .3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 13px 23px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .btn-primary {
+            color: white;
+            background: var(--primary);
+            box-shadow: 0 8px 20px rgba(37,99,235,.18);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(37,99,235,.25);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--border);
+            color: var(--secondary);
+            background: white;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 26px;
+            cursor: pointer;
+            color: var(--secondary);
+        }
+
+        /* HERO */
+
+        .hero {
+            padding: 155px 0 100px;
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 85% 20%, rgba(96,165,250,.16), transparent 30%),
+                radial-gradient(circle at 5% 80%, rgba(37,99,235,.08), transparent 28%),
+                #f8fbff;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1.05fr .95fr;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 9px 15px;
+            background: #eff6ff;
+            border: 1px solid #dbeafe;
+            border-radius: 30px;
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 23px;
+        }
+
+        .hero-label span {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--primary);
+        }
+
+        .hero h1 {
+            font-size: clamp(37px, 5vw, 59px);
+            line-height: 1.15;
+            letter-spacing: -2px;
+            font-weight: 800;
+            margin-bottom: 23px;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero-description {
+            font-size: 16px;
+            line-height: 1.9;
+            color: var(--text);
+            max-width: 530px;
+            margin-bottom: 32px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 13px;
+            flex-wrap: wrap;
+        }
+
+        .hero-note {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 20px;
+        }
+
+        .hero-visual {
+            position: relative;
+            min-height: 420px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dashboard {
+            width: 100%;
+            max-width: 470px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 22px;
+            padding: 25px;
+            box-shadow: 0 25px 70px rgba(15,23,42,.12);
+            position: relative;
+            z-index: 2;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .dashboard-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 23px;
+        }
+
+        .dashboard-top h3 {
+            font-size: 17px;
+        }
+
+        .dashboard-top span {
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 700;
+            background: #eff6ff;
+            padding: 7px 10px;
+            border-radius: 7px;
+        }
+
+        .search-box {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            padding: 13px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #94a3b8;
+            font-size: 12px;
+            margin-bottom: 18px;
+        }
+
+        .job-card {
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            margin-bottom: 12px;
+            transition: .3s;
+        }
+
+        .job-card:hover {
+            border-color: #93c5fd;
+            transform: translateX(4px);
+        }
+
+        .job-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 17px;
+            flex-shrink: 0;
+        }
+
+        .icon-blue {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+
+        .icon-purple {
+            background: #ede9fe;
+            color: #7c3aed;
+        }
+
+        .icon-orange {
+            background: #ffedd5;
+            color: #ea580c;
+        }
+
+        .job-info {
+            flex: 1;
+        }
+
+        .job-info h4 {
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .job-info p {
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .job-type {
+            font-size: 10px;
+            color: #2563eb;
+            background: #eff6ff;
+            padding: 6px 8px;
+            border-radius: 6px;
+        }
+
+        .floating-card {
+            position: absolute;
+            z-index: 3;
+            background: white;
+            border: 1px solid var(--border);
+            box-shadow: 0 15px 35px rgba(15,23,42,.1);
+            border-radius: 13px;
+            padding: 14px 17px;
+        }
+
+        .floating-card strong {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .floating-card small {
+            color: var(--muted);
+            font-size: 10px;
+        }
+
+        .floating-one {
+            top: 35px;
+            right: -15px;
+        }
+
+        .floating-two {
+            bottom: 30px;
+            left: -25px;
+        }
+
+        /* SECTION GENERAL */
+
+        section {
+            padding: 90px 0;
+        }
+
+        .section-heading {
+            text-align: center;
+            max-width: 680px;
+            margin: 0 auto 50px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            color: var(--primary);
+            background: #eff6ff;
+            padding: 8px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(27px, 4vw, 38px);
+            line-height: 1.3;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        /* FEATURES */
+
+        .features {
+            background: white;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .feature-card {
+            padding: 30px 25px;
+            border: 1px solid var(--border);
+            border-radius: 17px;
+            transition: .3s;
+            background: white;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-7px);
+            border-color: #bfdbfe;
+            box-shadow: 0 15px 35px rgba(37,99,235,.08);
+        }
+
+        .feature-icon {
+            width: 53px;
+            height: 53px;
+            border-radius: 14px;
+            background: #eff6ff;
+            color: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 22px;
+            margin-bottom: 22px;
+            font-weight: 800;
+        }
+
+        .feature-card h3 {
+            font-size: 17px;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        /* ABOUT */
+
+        .about {
+            background: #f8fafc;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 65px;
+        }
+
+        .about-visual {
+            background: linear-gradient(135deg, #1d4ed8, #60a5fa);
+            border-radius: 25px;
+            min-height: 370px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 35px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-visual::before,
+        .about-visual::after {
+            content: "";
+            position: absolute;
+            border: 1px solid rgba(255,255,255,.2);
+            border-radius: 50%;
+        }
+
+        .about-visual::before {
+            width: 350px;
+            height: 350px;
+        }
+
+        .about-visual::after {
+            width: 250px;
+            height: 250px;
+        }
+
+        .about-box {
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            width: 100%;
+            max-width: 310px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 20px 40px rgba(15,23,42,.15);
+        }
+
+        .about-box h3 {
+            font-size: 19px;
+            margin-bottom: 20px;
+        }
+
+        .about-step {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            margin-bottom: 18px;
+        }
+
+        .step-number {
+            width: 35px;
+            height: 35px;
+            border-radius: 10px;
+            background: #eff6ff;
+            color: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 800;
+            font-size: 13px;
+        }
+
+        .about-step p {
+            font-size: 12px;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .about-text .section-tag {
+            margin-bottom: 15px;
+        }
+
+        .about-text h2 {
+            font-size: 34px;
+            line-height: 1.3;
+            margin-bottom: 18px;
+        }
+
+        .about-text > p {
+            color: var(--muted);
+            line-height: 1.9;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .check-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .check-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .check {
+            width: 21px;
+            height: 21px;
+            background: #dbeafe;
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        /* BENEFITS */
+
+        .benefit-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .benefit-card {
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .benefit-number {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 42px;
+            font-weight: 800;
+            color: #bfdbfe;
+            margin-bottom: 15px;
+        }
+
+        .benefit-card h3 {
+            font-size: 17px;
+            margin-bottom: 12px;
+        }
+
+        .benefit-card p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        /* HOW IT WORKS */
+
+        .how-it-works {
+            background: #f8fafc;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .step-card {
+            background: white;
+            padding: 25px 20px;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-card .step-number {
+            margin: 0 auto 18px;
+            width: 43px;
+            height: 43px;
+            font-size: 15px;
+        }
+
+        .step-card h3 {
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        .step-card p {
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        /* FAQ */
+
+        .faq-list {
+            max-width: 780px;
+            margin: auto;
+        }
+
+        .faq-item {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 13px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 20px;
+            background: white;
+            border: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--secondary);
+            cursor: pointer;
+        }
+
+        .faq-question span {
+            color: var(--primary);
+            font-size: 20px;
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 0 20px 20px;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        /* CTA */
+
+        .cta-section {
+            padding: 75px 0;
+            background: white;
+        }
+
+        .cta-box {
+            padding: 65px 30px;
+            border-radius: 25px;
+            text-align: center;
+            background: linear-gradient(120deg, #1d4ed8, #3b82f6, #60a5fa);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before,
+        .cta-box::after {
+            content: "";
+            position: absolute;
+            border: 1px solid rgba(255,255,255,.18);
+            border-radius: 50%;
+        }
+
+        .cta-box::before {
+            width: 350px;
+            height: 350px;
+            top: -220px;
+            left: -100px;
+        }
+
+        .cta-box::after {
+            width: 400px;
+            height: 400px;
+            bottom: -280px;
+            right: -80px;
+        }
+
+        .cta-box h2 {
+            font-size: clamp(26px, 4vw, 38px);
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-box p {
+            font-size: 14px;
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto 28px;
+            color: #dbeafe;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-box .btn {
+            background: white;
+            color: var(--primary);
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-box .btn:hover {
+            background: #eff6ff;
+            transform: translateY(-3px);
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #0f172a;
+            color: white;
+            padding: 55px 0 25px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand .logo {
+            color: white;
+            margin-bottom: 18px;
+        }
+
+        .footer-brand p {
+            color: #94a3b8;
+            font-size: 13px;
+            line-height: 1.8;
+            max-width: 340px;
+        }
+
+        .footer-column h4 {
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .footer-column a {
+            display: block;
+            color: #94a3b8;
+            font-size: 13px;
+            margin-bottom: 12px;
+            transition: .3s;
+        }
+
+        .footer-column a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #334155;
+            padding-top: 22px;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        /* DEVELOPMENT NOTICE */
+
+        .notice-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(15,23,42,.55);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .notice-overlay.show {
+            display: flex;
+        }
+
+        .notice-box {
+            background: white;
+            border-radius: 20px;
+            padding: 35px 30px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 25px 70px rgba(15,23,42,.2);
+            animation: noticeIn .3s ease;
+        }
+
+        @keyframes noticeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px) scale(.97);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .notice-icon {
+            width: 65px;
+            height: 65px;
+            border-radius: 18px;
+            background: #eff6ff;
+            color: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        .notice-box h3 {
+            font-size: 21px;
+            margin-bottom: 12px;
+        }
+
+        .notice-box p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .notice-box button {
+            width: 100%;
+        }
+
+        /* ANIMATION */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity .7s ease, transform .7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+
+            .hero-text {
+                text-align: center;
+            }
+
+            .hero-description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                max-width: 550px;
+                width: 100%;
+                margin: auto;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .about-visual {
+                max-width: 550px;
+                width: 100%;
+                margin: auto;
+            }
+
+            .steps-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .nav-content {
+                height: 68px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 68px;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 22px 5%;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 20px;
+                border-bottom: 1px solid var(--border);
+                box-shadow: 0 12px 20px rgba(15,23,42,.06);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links .btn {
+                width: 100%;
+            }
+
+            .hero {
+                padding: 125px 0 70px;
+            }
+
+            .hero h1 {
+                letter-spacing: -1px;
+            }
+
+            .hero-visual {
+                min-height: 350px;
+            }
+
+            .dashboard {
+                padding: 18px;
+            }
+
+            .floating-one {
+                right: 0;
+            }
+
+            .floating-two {
+                left: 0;
+            }
+
+            section {
+                padding: 70px 0;
+            }
+
+            .feature-grid,
+            .benefit-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card {
+                padding: 25px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+
+            .footer-brand {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 91%;
+            }
+
+            .hero h1 {
+                font-size: 35px;
+            }
+
+            .hero-description {
+                font-size: 14px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .hero-buttons .btn {
+                width: 100%;
+            }
+
+            .hero-visual {
+                min-height: 320px;
+            }
+
+            .dashboard {
+                padding: 14px;
+            }
+
+            .floating-card {
+                padding: 10px 12px;
+            }
+
+            .floating-one {
+                top: 0;
+            }
+
+            .floating-two {
+                bottom: 0;
+            }
+
+            .job-card {
+                padding: 11px;
+            }
+
+            .job-type {
+                display: none;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-text h2 {
+                font-size: 28px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-brand {
+                grid-column: auto;
+            }
+
+            .cta-box {
+                padding: 50px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="container nav-content">
+
+            <a href="#home" class="logo">
+                <div class="logo-icon">J</div>
+                Job<span>Connect</span>
+            </a>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Buka menu">
+                &#9776;
+            </button>
+
+            <nav class="nav-links" id="navLinks">
+                <a href="#home">Beranda</a>
+                <a href="#fitur">Fitur</a>
+                <a href="#tentang">Tentang</a>
+                <a href="#cara-kerja">Cara Kerja</a>
+                <a href="#faq">FAQ</a>
+
+                <button class="btn btn-primary" onclick="showDevelopmentNotice()">
+                    Cari Lowongan Sekarang
+                </button>
+            </nav>
+
+        </div>
+    </header>
+
+
+    <section class="hero" id="home">
+        <div class="container hero-content">
+
+            <div class="hero-text reveal">
+
+                <div class="hero-label">
+                    <span></span>
+                    Platform Informasi dan Pencarian Kerja
+                </div>
+
+                <h1>
+                    Temukan Peluang Kerja,
+                    <span>Mulai Langkah Kariermu.</span>
+                </h1>
+
+                <p class="hero-description">
+                    JobConnect membantu kamu menemukan informasi lowongan
+                    pekerjaan yang sesuai dengan minat dan kemampuan.
+                    Jelajahi peluang karier, kenali perusahaan, dan ajukan
+                    lamaran melalui satu platform.
+                </p>
+
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="showDevelopmentNotice()">
+                        Cari Lowongan Sekarang
+                    </button>
+
+                    <a href="#fitur" class="btn btn-outline">
+                        Pelajari Fitur
+                    </a>
+                </div>
+
+                <p class="hero-note">
+                    Temukan informasi pekerjaan dan peluang karier dalam satu platform.
+                </p>
+
+            </div>
+
+
+            <div class="hero-visual reveal">
+
+                <div class="dashboard">
+
+                    <div class="dashboard-top">
+                        <h3>Temukan Pekerjaan</h3>
+                        <span>JobConnect</span>
+                    </div>
+
+                    <div class="search-box">
+                        <span>⌕</span>
+                        Cari posisi atau perusahaan...
+                    </div>
+
+                    <div class="job-card">
+                        <div class="job-icon icon-blue">W</div>
+                        <div class="job-info">
+                            <h4>Web Developer</h4>
+                            <p>Perusahaan Teknologi</p>
+                        </div>
+                        <span class="job-type">Full Time</span>
+                    </div>
+
+                    <div class="job-card">
+                        <div class="job-icon icon-purple">A</div>
+                        <div class="job-info">
+                            <h4>Staff Administrasi</h4>
+                            <p>Perusahaan Umum</p>
+                        </div>
+                        <span class="job-type">Full Time</span>
+                    </div>
+
+                    <div class="job-card">
+                        <div class="job-icon icon-orange">D</div>
+                        <div class="job-info">
+                            <h4>Digital Marketing</h4>
+                            <p>Perusahaan Digital</p>
+                        </div>
+                        <span class="job-type">Remote</span>
+                    </div>
+
+                </div>
+
+                <div class="floating-card floating-one">
+                    <strong>Informasi Lowongan</strong>
+                    <small>Temukan peluang kariermu</small>
+                </div>
+
+                <div class="floating-card floating-two">
+                    <strong>Pengajuan Lamaran</strong>
+                    <small>Lebih mudah dan terorganisir</small>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <section class="features" id="fitur">
+        <div class="container">
+
+            <div class="section-heading reveal">
+                <span class="section-tag">Fitur Utama</span>
+                <h2>Semua Kebutuhan Pencarian Kerja dalam Satu Platform</h2>
+                <p>
+                    JobConnect menyediakan berbagai fitur yang dirancang
+                    untuk mempermudah proses pencarian dan pengajuan lamaran kerja.
+                </p>
+            </div>
+
+
+            <div class="feature-grid">
+
+                <div class="feature-card reveal">
+                    <div class="feature-icon">⌕</div>
+                    <h3>Pencarian Lowongan</h3>
+                    <p>
+                        Temukan berbagai informasi lowongan pekerjaan
+                        berdasarkan posisi dan kata kunci yang kamu inginkan.
+                    </p>
+                </div>
+
+                <div class="feature-card reveal">
+                    <div class="feature-icon">▦</div>
+                    <h3>Filter Pekerjaan</h3>
+                    <p>
+                        Sesuaikan pencarian berdasarkan kategori pekerjaan,
+                        lokasi, dan jenis pekerjaan.
+                    </p>
+                </div>
+
+                <div class="feature-card reveal">
+                    <div class="feature-icon">▤</div>
+                    <h3>Informasi Perusahaan</h3>
+                    <p>
+                        Lihat detail lowongan dan informasi perusahaan
+                        untuk mengenal tempat kerja yang dituju.
+                    </p>
+                </div>
+
+                <div class="feature-card reveal">
+                    <div class="feature-icon">♙</div>
+                    <h3>Profil Pencari Kerja</h3>
+                    <p>
+                        Buat dan kelola profil pribadi sebagai identitas
+                        dalam proses pencarian pekerjaan.
+                    </p>
+                </div>
+
+                <div class="feature-card reveal">
+                    <div class="feature-icon">➤</div>
+                    <h3>Pengajuan Lamaran</h3>
+                    <p>
+                        Ajukan lamaran pekerjaan melalui platform
+                        sesuai dengan informasi lowongan yang tersedia.
+                    </p>
+                </div>
+
+                <div class="feature-card reveal">
+                    <div class="feature-icon">✓</div>
+                    <h3>Pantau Status Lamaran</h3>
+                    <p>
+                        Periksa perkembangan status lamaran pekerjaan
+                        melalui akun pencari kerja.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <section class="about" id="tentang">
+        <div class="container about-content">
+
+            <div class="about-visual reveal">
+
+                <div class="about-box">
+                    <h3>Langkah Menuju Karier</h3>
+
+                    <div class="about-step">
+                        <div class="step-number">01</div>
+                        <p>Buat akun dan lengkapi profil</p>
+                    </div>
+
+                    <div class="about-step">
+                        <div class="step-number">02</div>
+                        <p>Temukan lowongan yang sesuai</p>
+                    </div>
+
+                    <div class="about-step">
+                        <div class="step-number">03</div>
+                        <p>Ajukan lamaran pekerjaan</p>
+                    </div>
+
+                    <div class="about-step">
+                        <div class="step-number">04</div>
+                        <p>Pantau status lamaran</p>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="about-text reveal">
+
+                <span class="section-tag">Tentang JobConnect</span>
+
+                <h2>
+                    Menghubungkan Pencari Kerja dengan Peluang yang Tepat
+                </h2>
+
+                <p>
+                    JobConnect merupakan platform informasi dan pencarian
+                    lowongan kerja yang dirancang untuk membantu masyarakat
+                    memperoleh informasi pekerjaan secara lebih mudah,
+                    terstruktur, dan terpusat.
+                </p>
+
+                <ul class="check-list">
+                    <li>
+                        <span class="check">✓</span>
+                        <span>Mempermudah akses informasi lowongan pekerjaan.</span>
+                    </li>
+
+                    <li>
+                        <span class="check">✓</span>
+                        <span>Membantu menemukan pekerjaan berdasarkan kebutuhan.</span>
+                    </li>
+
+                    <li>
+                        <span class="check">✓</span>
+                        <span>Menyediakan informasi perusahaan dan detail pekerjaan.</span>
+                    </li>
+
+                    <li>
+                        <span class="check">✓</span>
+                        <span>Mendukung proses pengajuan dan pemantauan lamaran.</span>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <section class="benefits">
+        <div class="container">
+
+            <div class="section-heading reveal">
+                <span class="section-tag">Keunggulan</span>
+                <h2>Mengapa Menggunakan JobConnect?</h2>
+                <p>
+                    Dirancang untuk memberikan pengalaman pencarian kerja
+                    yang lebih praktis dan terorganisir.
+                </p>
+            </div>
+
+
+            <div class="benefit-grid">
+
+                <div class="benefit-card reveal">
+                    <div class="benefit-number">01</div>
+                    <h3>Lebih Praktis</h3>
+                    <p>
+                        Informasi lowongan pekerjaan dapat diakses
+                        melalui satu platform.
+                    </p>
+                </div>
+
+                <div class="benefit-card reveal">
+                    <div class="benefit-number">02</div>
+                    <h3>Lebih Terarah</h3>
+                    <p>
+                        Fitur pencarian dan filter membantu menemukan
+                        pekerjaan sesuai kebutuhan.
+                    </p>
+                </div>
+
+                <div class="benefit-card reveal">
+                    <div class="benefit-number">03</div>
+                    <h3>Lebih Terorganisir</h3>
+                    <p>
+                        Profil dan informasi status lamaran dapat
+                        dikelola melalui akun pencari kerja.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <section class="how-it-works" id="cara-kerja">
+        <div class="container">
+
+            <div class="section-heading reveal">
+                <span class="section-tag">Cara Menggunakan</span>
+                <h2>Mulai Perjalanan Kariermu dengan Mudah</h2>
+                <p>
+                    Ikuti beberapa langkah berikut untuk memanfaatkan
+                    layanan pencarian kerja JobConnect.
+                </p>
+            </div>
+
+
+            <div class="steps-grid">
+
+                <div class="step-card reveal">
+                    <div class="step-number">01</div>
+                    <h3>Buat Akun</h3>
+                    <p>
+                        Daftarkan akun dan lengkapi informasi
+                        profil pencari kerja.
+                    </p>
+                </div>
+
+                <div class="step-card reveal">
+                    <div class="step-number">02</div>
+                    <h3>Cari Lowongan</h3>
+                    <p>
+                        Jelajahi informasi pekerjaan dan gunakan
+                        filter pencarian yang tersedia.
+                    </p>
+                </div>
+
+                <div class="step-card reveal">
+                    <div class="step-number">03</div>
+                    <h3>Ajukan Lamaran</h3>
+                    <p>
+                        Pilih pekerjaan yang sesuai dan ajukan
+                        lamaran melalui platform.
+                    </p>
+                </div>
+
+                <div class="step-card reveal">
+                    <div class="step-number">04</div>
+                    <h3>Pantau Lamaran</h3>
+                    <p>
+                        Periksa perkembangan dan status
+                        pengajuan lamaran pekerjaan.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <section class="faq" id="faq">
+        <div class="container">
+
+            <div class="section-heading reveal">
+                <span class="section-tag">FAQ</span>
+                <h2>Pertanyaan yang Sering Diajukan</h2>
+                <p>
+                    Temukan jawaban dari beberapa pertanyaan
+                    mengenai platform JobConnect.
+                </p>
+            </div>
+
+
+            <div class="faq-list">
+
+                <div class="faq-item reveal">
+                    <button class="faq-question">
+                        Apa itu JobConnect?
+                        <span>+</span>
+                    </button>
+                    <div class="faq-answer">
+                        JobConnect adalah platform informasi dan pencarian
+                        lowongan kerja yang membantu pencari kerja menemukan
+                        peluang pekerjaan dan mengajukan lamaran.
+                    </div>
+                </div>
+
+                <div class="faq-item reveal">
+                    <button class="faq-question">
+                        Siapa saja yang dapat menggunakan JobConnect?
+                        <span>+</span>
+                    </button>
+                    <div class="faq-answer">
+                        JobConnect ditujukan bagi masyarakat yang sedang
+                        mencari pekerjaan, termasuk lulusan baru,
+                        siswa atau lulusan SMK/SMA, mahasiswa, dan pencari kerja umum.
+                    </div>
+                </div>
+
+                <div class="faq-item reveal">
+                    <button class="faq-question">
+                        Apakah saya dapat mencari pekerjaan berdasarkan lokasi?
+                        <span>+</span>
+                    </button>
+                    <div class="faq-answer">
+                        Ya. Platform dirancang menyediakan fitur filter
+                        untuk membantu pencari kerja menemukan lowongan
+                        berdasarkan lokasi pekerjaan.
+                    </div>
+                </div>
+
+                <div class="faq-item reveal">
+                    <button class="faq-question">
+                        Apakah lamaran dapat diajukan melalui JobConnect?
+                        <span>+</span>
+                    </button>
+                    <div class="faq-answer">
+                        Ya. JobConnect dirancang untuk mendukung proses
+                        pengajuan lamaran pekerjaan melalui platform
+                        sesuai dengan lowongan yang tersedia.
+                    </div>
+                </div>
+
+                <div class="faq-item reveal">
+                    <button class="faq-question">
+                        Apakah website JobConnect sudah dapat digunakan?
+                        <span>+</span>
+                    </button>
+                    <div class="faq-answer">
+                        Saat ini website JobConnect masih dalam tahap
+                        pengembangan. Beberapa fitur sedang dipersiapkan
+                        agar dapat digunakan dengan baik.
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <section class="cta-section">
+        <div class="container">
+
+            <div class="cta-box reveal">
+
+                <h2>Siap Menemukan Peluang Kariermu?</h2>
+
+                <p>
+                    Persiapkan langkah kariermu bersama JobConnect.
+                    Temukan informasi pekerjaan dan peluang baru
+                    untuk masa depan yang lebih baik.
+                </p>
+
+                <button class="btn" onclick="showDevelopmentNotice()">
+                    Cari Lowongan Sekarang
+                </button>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <footer>
+        <div class="container">
+
+            <div class="footer-content">
+
+                <div class="footer-brand">
+
+                    <a href="#home" class="logo">
+                        <div class="logo-icon">J</div>
+                        Job<span>Connect</span>
+                    </a>
+
+                    <p>
+                        JobConnect merupakan platform informasi dan
+                        pencarian lowongan kerja yang membantu
+                        menghubungkan pencari kerja dengan peluang karier.
+                    </p>
+
+                </div>
+
+
+                <div class="footer-column">
+                    <h4>Navigasi</h4>
+                    <a href="#home">Beranda</a>
+                    <a href="#fitur">Fitur</a>
+                    <a href="#tentang">Tentang Kami</a>
+                    <a href="#cara-kerja">Cara Kerja</a>
+                </div>
+
+
+                <div class="footer-column">
+                    <h4>Informasi</h4>
+                    <a href="#faq">FAQ</a>
+                    <a href="#" onclick="showDevelopmentNotice(); return false;">
+                        Cari Lowongan
+                    </a>
+                </div>
+
+            </div>
+
+
+            <div class="footer-bottom">
+                © 2026 JobConnect. All Rights Reserved.
+                Connect Your Skills, Discover Your Career.
+            </div>
+
+        </div>
+    </footer>
+
+
+    <div class="notice-overlay" id="developmentNotice">
+
+        <div class="notice-box">
+
+            <div class="notice-icon">i</div>
+
+            <h3>Website Sedang Dikembangkan</h3>
+
+            <p>
+                Mohon maaf, website JobConnect saat ini masih dalam
+                tahap pengembangan. Kami sedang mempersiapkan berbagai
+                fitur agar dapat memberikan pengalaman pencarian kerja
+                yang lebih baik. Silakan kunjungi kembali nanti.
+            </p>
+
+            <button class="btn btn-primary" onclick="closeDevelopmentNotice()">
+                Mengerti
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        const menuToggle = document.getElementById("menuToggle");
+        const navLinks = document.getElementById("navLinks");
+
+        menuToggle.addEventListener("click", function () {
+            navLinks.classList.toggle("active");
+        });
+
+        document.querySelectorAll(".nav-links a").forEach(function(link) {
+            link.addEventListener("click", function() {
+                navLinks.classList.remove("active");
+            });
+        });
+
+        function showDevelopmentNotice() {
+            document.getElementById("developmentNotice").classList.add("show");
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeDevelopmentNotice() {
+            document.getElementById("developmentNotice").classList.remove("show");
+            document.body.style.overflow = "auto";
+        }
+
+        document.getElementById("developmentNotice").addEventListener("click", function(event) {
+            if (event.target === this) {
+                closeDevelopmentNotice();
+            }
+        });
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+                closeDevelopmentNotice();
+            }
+        });
+
+        const faqItems = document.querySelectorAll(".faq-item");
+
+        faqItems.forEach(function(item) {
+
+            const question = item.querySelector(".faq-question");
+            const icon = question.querySelector("span");
+
+            question.addEventListener("click", function() {
+
+                const isActive = item.classList.contains("active");
+
+                faqItems.forEach(function(otherItem) {
+                    otherItem.classList.remove("active");
+                    otherItem.querySelector(".faq-question span").textContent = "+";
+                });
+
+                if (!isActive) {
+                    item.classList.add("active");
+                    icon.textContent = "−";
+                }
+
+            });
+
+        });
+
+        const observer = new IntersectionObserver(function(entries) {
+
+            entries.forEach(function(entry) {
+
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                    observer.unobserve(entry.target);
+                }
+
+            });
+
+        }, {
+            threshold: 0.12
+        });
+
+        document.querySelectorAll(".reveal").forEach(function(element) {
+            observer.observe(element);
+        });
+
+    </script>
+
+</body>
+</html>
